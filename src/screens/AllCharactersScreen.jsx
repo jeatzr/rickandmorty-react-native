@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import { getCharactersByPage } from '../services/rickmortyapi';
-
+import CharacterCard from '../components/CharacterCard';
 
 const AllCharactersScreen = () => {
   const [characters, setCharacters] = useState([]);
@@ -29,15 +29,7 @@ const AllCharactersScreen = () => {
         style={styles.list}
         data={characters}
         renderItem={({ item }) => (
-          <View key={item.id} style={styles.row}>
-            <Image source={{ uri: item.image }} style={styles.image} resizeMode="contain" />
-            <View style={[styles.column, { marginLeft: 10 }]}>
-              <Text style={[styles.text, { fontWeight: "bold" }]}>{item.name}</Text>
-              <Text style={styles.text}>{item.species}</Text>
-              <Text style={styles.text}>{item.status}</Text>
-              <Text style={styles.text}>{item.id}</Text>
-            </View>
-          </View>
+          <CharacterCard key={item.id} item={item} />
         )}
         ListFooterComponent={() => <Text>-- End --</Text>}
         onEndReachedThreshold={0}
