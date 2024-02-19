@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { getCharactersByPage } from './src/services/rickmortyapi';
 
 const API = "https://rickandmortyapi.com/api/";
 
@@ -9,12 +10,11 @@ const App = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   const getCharacters = (page = 1) => {
-    fetch(`${API}character/?page=${page}`)
-      .then(response => response.json())
+    getCharactersByPage(page)
       .then(json => {
         setCharacters(prevCharacters => [...prevCharacters, ...json.results]);
         setTotalPages(json.info.pages);
-        setCurrentPage(page);
+        //setCurrentPage(json.info.page);
       })
       .catch(error => console.log("error", error));
   };
@@ -44,8 +44,8 @@ const App = () => {
         ListFooterComponent={() => <Text>-- End --</Text>}
         onEndReachedThreshold={0}
         onEndReached={() => {
-          getCharacters(currentPage + 1)
-          setCurrentPage(currentPage + 1)
+          getCharacters(currentPage + 1);
+          setCurrentPage(currentPage + 1);
         }
         }
       />
