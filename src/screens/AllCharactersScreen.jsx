@@ -33,7 +33,7 @@ const AllCharactersScreen = () => {
         data={characters}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => { navigation.navigate('CharacterDetails', { item: item }) }}
+            onPress={() => navigation.navigate('CharacterDetails', { item: item })}
           >
             <CharacterCard key={item.id} item={item} />
           </TouchableOpacity>
