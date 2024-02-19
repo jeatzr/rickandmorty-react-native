@@ -44,10 +44,11 @@ const App = () => {
         ListFooterComponent={() => <Text>-- End --</Text>}
         onEndReachedThreshold={0}
         onEndReached={() => {
-          getCharacters(currentPage + 1);
-          setCurrentPage(currentPage + 1);
-        }
-        }
+          if (currentPage < totalPages) {
+            getCharacters(currentPage + 1);
+            setCurrentPage(currentPage + 1);
+          }
+        }}
       />
     </View>
   );
