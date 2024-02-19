@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { getCharactersByPage } from '../services/rickmortyapi';
 import CharacterCard from '../components/CharacterCard';
+import { useNavigation } from '@react-navigation/native';
 
 const AllCharactersScreen = () => {
   const [characters, setCharacters] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+
+  const navigation = useNavigation();
 
   const getCharacters = (page = 1) => {
     getCharactersByPage(page)
@@ -29,7 +32,11 @@ const AllCharactersScreen = () => {
         style={styles.list}
         data={characters}
         renderItem={({ item }) => (
-          <CharacterCard key={item.id} item={item} />
+          <TouchableOpacity
+            onPress={() => { navigation.navigate('CharacterDetails', { item: item }) }}
+          >
+            <CharacterCard key={item.id} item={item} />
+          </TouchableOpacity>
         )}
         ListFooterComponent={() => <Text>-- End --</Text>}
         onEndReachedThreshold={0}
